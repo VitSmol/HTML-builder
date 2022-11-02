@@ -58,3 +58,6 @@
   //   }
   // }
   // returnPath(getFlag)
+  fs.stat(path.join(secretFolder, el.name), (err,stats) => {
+    // console.log(stats.size);
+  })
