@@ -3,9 +3,9 @@ const fs = require(`fs`);
 
 let file = path.join(__dirname, `./text.txt`)
 
-const stream = fs.createReadStream(file, `utf-8`)
+const stream1 = fs.ReadStream(file, `utf-8`)
 let data = ``
 
-stream.on(`data`, chunk => data += chunk)
-stream.on(`end`, () => console.log(data))
-stream.on(`error`, () => console.log(`error`, error.message))
+stream1.on(`data`, chunk => data += chunk)
+stream1.on(`end`, () => console.log(data))
+stream1.on(`error`, () => console.log(`error`, error.message))
