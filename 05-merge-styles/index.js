@@ -22,9 +22,7 @@ const bundleFiles = (from, to) => {
     if (!err) {
       deleteFile()
       create()
-      console.log(`bundle exist`);
     } else {
-      console.log(`bundle not exist`);
       create()
     }
   })
