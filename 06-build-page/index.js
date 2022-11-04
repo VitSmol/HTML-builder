@@ -20,10 +20,10 @@ const deleteDir = (dir) => {
           fs.rmdir(dir, callback)
         }
         data.forEach(el => {
-          // если элемент является файлом
+          // if element is a file
           if (el.isFile()) {
             fs.unlink(path.join(dir, el.name), callback)
-            // если элемент является каталогом
+            // if element is a directory
           } else if (el.isDirectory()) {
             deleteDir(path.join(dir, el.name))
           }
@@ -66,15 +66,14 @@ function pageBuilder(template) {
     function arrayDiff(a, b) {
       return b.filter(el => a.includes(el.fileName))
     }
-
+    //! if the selector is commented out, it will not be included in the markup
     let arr = text.match(/(?!<!--\s{0,5}){{\w{0,20}}}(?!\s{0,5}-->)/g).map(el => {
       return el.replace(/{|}/g, "")
     })
-    let result = arrayDiff(arr, components)
-    result = result.filter(el => el.fileExt === '.html')
+    //! exclude non-html files
+    let result = arrayDiff(arr, components).filter(el => el.fileExt === '.html')
 
     let output = fs.createWriteStream(file);
-
     result.forEach(el => {
       let regExp = new RegExp(`{{${el.fileName}}}`)
       text = text.replace(regExp, el.code)
@@ -136,15 +135,15 @@ const copyFiles = (from, to) => {
 }
 
 function execute() {
+  deleteDir(assetsOut)
   const stream = fs.createReadStream(templateFile, `utf-8`)
   stream.on(`data`, chunk => {
   })
   stream.on(`end`, () => {
-    pageBuilder(templateFile)
-    bundleFiles(inputStylesDir, projectDir)
-    copyFiles(assetsIn, assetsOut)
+      pageBuilder(templateFile)
+      bundleFiles(inputStylesDir, projectDir)
+      copyFiles(assetsIn, assetsOut)
   })
-  deleteDir(assetsOut)
 
 }
 execute()
