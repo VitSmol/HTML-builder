@@ -7,7 +7,8 @@ const output = fs.createWriteStream(file);
 
 stdout.write(newText + ': ')
 stdin.on(`data`, data => {
-  data = data.toString().slice(0, -2)
+  data = data.toString().trim()
+  // .slice(0, -2)
   if (data.toLowerCase() === `exit`) {
     process.exit()
   }
